@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 3503152146400013435}
   - component: {fileID: 1050969337437842147}
   - component: {fileID: 9086759661028574594}
+  - component: {fileID: 2286826081590000814}
   m_Layer: 3
-  m_Name: Coin
+  m_Name: Heal Kit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -3
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.745283, g: 0.6322345, b: 0, a: 1}
+  m_Color: {r: 0.8962264, g: 0.76432896, b: 0.77639794, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -116,6 +117,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2286826081590000814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3503152146400013434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c887e163abaec8245b7d2624792d0682, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healCount: 18.6
 --- !u!1 &3503152146711917545
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +141,7 @@ GameObject:
   - component: {fileID: 3503152146711917542}
   - component: {fileID: 3503152146711917543}
   m_Layer: 3
-  m_Name: Border
+  m_Name: Horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 3503152146711917545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3503152146400013432}
@@ -190,7 +204,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.8490566, b: 0, a: 1}
+  m_Color: {r: 0.5943396, g: 0.017263813, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -211,7 +225,7 @@ GameObject:
   - component: {fileID: 3503152146726191368}
   - component: {fileID: 3503152146726191369}
   m_Layer: 3
-  m_Name: Center
+  m_Name: Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +240,7 @@ Transform:
   m_GameObject: {fileID: 3503152146726191371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3503152146400013432}
@@ -274,7 +288,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7490196, g: 0.63529414, b: 0, a: 1}
+  m_Color: {r: 0.59607846, g: 0.019607844, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
