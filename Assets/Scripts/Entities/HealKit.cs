@@ -6,9 +6,9 @@ public class HealKit : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.TryGetComponent(out Player player) == true)
+        if (col.TryGetComponent(out Health health) == true)
         {
-            player.Heal(_healCount);
+            health.Heal(_healCount);
             Destroy(gameObject);
         }
     }

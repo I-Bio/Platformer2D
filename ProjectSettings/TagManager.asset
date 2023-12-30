@@ -8,13 +8,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Trigger
+  - TriggerForPlayer
   - Water
   - UI
   - Ground
   - Player
   - Enemy
-  - EnemyTrigger
+  - TriggerForEnemy
   - 
   - 
   - 

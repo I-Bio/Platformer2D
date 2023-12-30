@@ -13,20 +13,12 @@ public class EnemyAttackTrigger : MonoBehaviour
         _canAttack = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.bounds.min.y > transform.position.y)
-        {
-            Destroy(transform.parent.gameObject);
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (_canAttack == true && other.TryGetComponent(out Player player) == true)
+        if (_canAttack == true && other.TryGetComponent(out Health health) == true)
         {
             _canAttack = false;
-            player.TakeDamage(_damage);
+            health.TakeDamage(_damage);
             StartCoroutine(AttackRecharge());
         }
     }
