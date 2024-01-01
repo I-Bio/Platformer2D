@@ -13,6 +13,7 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private PlayerInput _playerInput;
     private bool _isGrounded;
+    private bool _canMove;
 
     public event Action<float> Moved;
     public event Action Idled;
@@ -21,6 +22,7 @@ public class PlayerMover : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _playerInput = GetComponent<PlayerInput>();
+        _canMove = true;
 
         _playerInput.NeededMove += Move;
         _playerInput.NeededJump += Jump;
@@ -42,22 +44,35 @@ public class PlayerMover : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(_bottomPoint.position, _bottomPointRadius);
     }
+    
+    public void ForbidMove()
+    {
+        _canMove = false;
+    }
 
+    public void AllowMove()
+    {
+        _canMove = true;
+    }
+    
     private void Move(float horizontal)
     {
-        Vector2 moveDirection = new Vector2(horizontal * _speed, _rigidbody2D.velocity.y);
-        bool isIdle = moveDirection.x == 0;
-
-        if (isIdle == false)
+        if (_canMove == true)
         {
-            Moved?.Invoke(moveDirection.x);
-        }
-        else
-        {
-            Idled?.Invoke();
-        }
+            Vector2 moveDirection = new Vector2(horizontal * _speed, _rigidbody2D.velocity.y);
+            bool isIdle = moveDirection.x == 0;
 
-        _rigidbody2D.velocity = moveDirection;
+            if (isIdle == false)
+            {
+                Moved?.Invoke(moveDirection.x);
+            }
+            else
+            {
+                Idled?.Invoke();
+            }
+
+            _rigidbody2D.velocity = moveDirection;
+        }
     }
 
     private void CheckGround()

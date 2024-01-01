@@ -6,6 +6,7 @@ public class PlayerInput : MonoBehaviour
     public event Action<float> NeededMove;
     public event Action NeededJump;
     public event Action NeededAttack;
+    public event Action NeededLifeSteal;
     
     private void Update()
     {
@@ -25,5 +26,8 @@ public class PlayerInput : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Mouse0) == true)
             NeededAttack?.Invoke();
+        
+        if (Input.GetKeyDown(KeyCode.F) == true)
+            NeededLifeSteal?.Invoke();
     }
 }

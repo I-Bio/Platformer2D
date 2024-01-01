@@ -1,29 +1,37 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(PlayerInput), typeof(LifeStealer))]
 public class PlayerAttacker : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private LayerMask _enemy;
     [SerializeField] private float _radius;
     [SerializeField] private float _damage;
-    
+
+    private LifeStealer _lifeStealer;
     private PlayerInput _playerInput;
     private bool _isAttacked;
 
+    public event Action NeededForbidMoving;
+    public event Action NeededAllowMoving;
     public event Action Attacked;
+    public event Action<float> UsedLifeSteal;
 
     private void OnEnable()
     {
         _playerInput = GetComponent<PlayerInput>();
+        _lifeStealer = GetComponent<LifeStealer>();
+        _lifeStealer.SetEndAction(AllowAttack);
         
         _playerInput.NeededAttack += StartAttack;
+        _playerInput.NeededLifeSteal += UseLifeSteal;
     }
 
     private void OnDisable()
     {
         _playerInput.NeededAttack -= StartAttack;
+        _playerInput.NeededLifeSteal -= UseLifeSteal;
     }
 
     private void OnDrawGizmos()
@@ -36,7 +44,7 @@ public class PlayerAttacker : MonoBehaviour
     {
         if (_isAttacked == false)
         {
-            _isAttacked = true;
+            ForbidAttack();
             Attacked?.Invoke();
         }
     }
@@ -47,12 +55,34 @@ public class PlayerAttacker : MonoBehaviour
 
         foreach (var item in colliders)
         {
-            if (item.TryGetComponent(out Health health))
+            if (item.TryGetComponent(out Health health) == true)
             {
                 health.TakeDamage(_damage);
             }
         }
 
+        AllowAttack();
+    }
+
+    private void UseLifeSteal()
+    {
+        if (_isAttacked == false && _lifeStealer.CanSteal == true)
+        {
+            ForbidAttack();
+            UsedLifeSteal?.Invoke(_lifeStealer.Duration);
+            _lifeStealer.StartStealing();   
+        }
+    }
+
+    private void AllowAttack()
+    {
         _isAttacked = false;
+        NeededAllowMoving?.Invoke();
+    }
+
+    private void ForbidAttack()
+    {
+        _isAttacked = true;
+        NeededForbidMoving?.Invoke();
     }
 }

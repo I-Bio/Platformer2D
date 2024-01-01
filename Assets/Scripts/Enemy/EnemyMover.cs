@@ -10,6 +10,7 @@ public class EnemyMover : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Transform _target;
     private int _currentPoint;
+    private bool _isFollowPlayer;
 
     private void OnEnable()
     {
@@ -18,13 +19,13 @@ public class EnemyMover : MonoBehaviour
         SetTargetPoint();
         
         _enemyFollowingTrigger.PlayerEntered += SetTarget;
-        _enemyFollowingTrigger.PlayerExited += SetTargetPoint;
+        _enemyFollowingTrigger.PlayerExited += OnPlayerExited;
     }
 
     private void OnDisable()
     {
         _enemyFollowingTrigger.PlayerEntered -= SetTarget;
-        _enemyFollowingTrigger.PlayerExited -= SetTargetPoint;
+        _enemyFollowingTrigger.PlayerExited -= OnPlayerExited;
     }
 
     private void Update()
@@ -34,14 +35,23 @@ public class EnemyMover : MonoBehaviour
     
     public void SetNextPoint()
     {
-        _currentPoint++;
-
-        if (_currentPoint >= _pathPoints.Length)
+        if (_isFollowPlayer == false)
         {
-            _currentPoint = 0;
+            _currentPoint++;
+
+            if (_currentPoint >= _pathPoints.Length)
+            {
+                _currentPoint = 0;
+            }
+
+            SetTargetPoint();
         }
-        
+    }
+
+    private void OnPlayerExited()
+    {
         SetTargetPoint();
+        StopFollow();
     }
 
     private void Move()
@@ -59,6 +69,12 @@ public class EnemyMover : MonoBehaviour
 
     private void SetTarget(Transform target)
     {
+        _isFollowPlayer = true;
         _target = target;
+    }
+
+    private void StopFollow()
+    {
+        _isFollowPlayer = false;
     }
 }
